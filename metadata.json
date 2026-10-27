@@ -1,0 +1,6 @@
+{
+  "name": "Diretor do Reality",
+  "description": "Simulador estratégico de gerenciamento de reality show: comande bastidores, participantes, edições e audiência.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
