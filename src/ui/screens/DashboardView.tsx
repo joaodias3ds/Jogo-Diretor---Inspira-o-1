@@ -32,6 +32,7 @@ import { RosterManagementScreen } from '@/ui/screens/RosterManagementScreen';
 import { StaffManagementScreen } from '@/ui/screens/StaffManagementScreen';
 import { HallOfFameScreen } from '@/ui/screens/HallOfFameScreen';
 import { SeasonReplayModal } from '@/ui/screens/SeasonReplayModal';
+import { ProductionCalendarScreen } from '@/ui/screens/ProductionCalendarScreen';
 import { WEEKLY_SCHEDULE } from '@/engine/time/gameClock';
 import {
   Briefcase,
@@ -491,8 +492,9 @@ export const DashboardView: React.FC = () => {
           },
           {
             id: 'schedule',
-            label: 'Calendário',
+            label: 'Cronograma & Timeline',
             icon: <Calendar size={14} />,
+            badge: '12 sem',
           },
         ]}
         activeTab={activeTab}
@@ -621,56 +623,8 @@ export const DashboardView: React.FC = () => {
         />
       )}
 
-      {/* ABA 8: Calendário & Cronograma */}
-      {activeTab === 'schedule' && (
-        <Card className="space-y-4">
-          <div className="flex items-center justify-between pb-3 border-b border-slate-800">
-            <div>
-              <h3 className="font-bold text-white text-base">Calendário Semanal da Atração</h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                A simulação avança pelas fases do dia e pausa automaticamente em grandes eventos como Prova do Líder e Paredão.
-              </p>
-            </div>
-            <Badge variant="info">SEMANA {time.week} DE {seasonConfig.durationWeeks}</Badge>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
-            {WEEKLY_SCHEDULE.map((sch) => {
-              const isToday = sch.dayOfWeek === time.dayOfWeek;
-              return (
-                <div
-                  key={`${sch.dayOfWeek}-${sch.phase}`}
-                  className={`p-3.5 rounded-xl border flex flex-col justify-between ${
-                    isToday
-                      ? 'border-cyan-400 bg-cyan-950/40 shadow-lg ring-1 ring-cyan-400/50'
-                      : 'border-slate-800 bg-slate-950/60'
-                  }`}
-                >
-                  <div>
-                    <div className="flex items-center justify-between text-[11px] font-mono text-slate-400 mb-1">
-                      <span className={isToday ? 'text-cyan-300 font-bold' : ''}>{sch.dayOfWeek}</span>
-                      <span className="px-1.5 py-0.2 rounded bg-slate-900 text-slate-400 uppercase text-[9px]">
-                        {sch.phase}
-                      </span>
-                    </div>
-                    <h4 className="font-bold text-white text-xs mb-1">{sch.title}</h4>
-                    <p className="text-[11px] text-slate-400 leading-tight">{sch.description}</p>
-                  </div>
-
-                  <div className="pt-2 mt-3 border-t border-slate-800/80 flex items-center justify-between text-[10px] font-mono">
-                    <span className={sch.isAutoPause ? 'text-amber-400' : 'text-slate-500'}>
-                      {sch.isAutoPause ? '⏸ Auto-pausa' : '▶ Contínuo'}
-                    </span>
-                    {isToday && (
-                      <span className="text-cyan-400 font-bold uppercase tracking-wider">HOJE</span>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
-          </div>
-        </Card>
-      )}
+      {/* ABA: Cronograma Geral de Produção & Timeline da Temporada */}
+      {activeTab === 'schedule' && <ProductionCalendarScreen />}
 
       {/* Modais Globais */}
       <CameraPipModal
